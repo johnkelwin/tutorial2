@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="Description" content="Enter your description here"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="prism.css">
+<link rel="stylesheet" href="style.css">
+<title>Source code for validating inputs using PHP</title>
+  <!-- Google Tag Manager -->
+</head>
+<body>
+
+    <div class="row">
+
+        <div class="col-md-12 header-container text-center">
+             <h2 class="title">Programmer JK</h2>
+             <h3 class="title">Validating inputs using PHP :</h3>
+        </div>
+    </div>
+        <div class="body-container">
+            <div class="row">
+
+                <div class="sub-container code" >
+                    <h2>Entire one with HTML and PHP :</h2>
+                    <pre>
+                        <code class="language-php">
+
+                            &lt!DOCTYPE html&gt
+&lthtml lang="en"&gt
+&lthead&gt
+    
+    &lttitle&gtValidating and displaying the inputs&lt/title&gt
+    &ltlink rel="stylesheet" href="style.css"&gt
+&lt/head&gt
+&ltbody&gt
+&lt?php
+   $nameErr=$emailErr=$phonenoErr="";
+   $name=$email=$phoneno=$comment="";
+
+   if($_SERVER['REQUEST_METHOD']=='POST')
+   {
+      if(empty($_POST['name']))
+      {
+         $nameErr="This field is required";
+      }
+      else
+      {
+         $pattern="/^[a-zA-Z]+$/";
+         $check=preg_match_all($pattern,$_POST['name']);
+         if($check)
+         {
+            $name=$_POST['name'];
+         }
+         else
+         {
+            $nameErr="Enter the correct pattern";
+         }
+      }
+      //validating email
+      if(empty($_POST['email']))
+      {
+         $emailErr="This field is required";
+      }
+      else
+      {
+        $check=filter_var($_POST['email'],FILTER_VALIDATE_EMAIL);
+        if($check)
+        {
+           $email=$_POST['email'];
+        }
+        else
+        {
+           $emailErr="Enter the correct email format";
+        }
+      }
+      //validating phone no
+      if(empty($_POST['phoneno']))
+      {
+         $phonenoErr="This field is required";
+      }
+      else
+      {
+         $pattern="/^[6-9]{1}[0-9]{9}/";
+         $check=preg_match_all($pattern,$_POST['phoneno']);
+         if($check)
+         {
+            $phoneno=$_POST['phoneno'];
+         }
+         else
+         {
+            $phonenoErr="Enter correct phone number";
+         }
+      }
+      if($_POST['comment'])
+      {
+         $comment=htmlspecialchars($_POST['comment']);
+      }
+   }
+?&gt
+
+&ltdiv class="form-container"&gt
+    &ltdiv&gt&ltspan class="red-message"&gt* Required&lt/span&gt&lt/div&gt
+    &ltform auto_complete="off" method="post" action="&lt?php echo $_SERVER["PHP_SELF"] ;?&gt"  &gt
+      &ltdiv&gt
+        &ltdiv class="form-element"&gt
+         &lt!-- to get name--&gt
+            &ltlabel for="name"&gtName :&lt/label&gt
+            &ltinput name="name" type="text" id="name" placeholder="Enter your name"&gt
+            &ltspan class='red-message'&gt* &lt?php echo $nameErr;?&gt&lt/span&gt
+         &lt/div&gt
+         &lt!-- to get email---&gt
+            &ltlabel for="-email"&gtE-mail :&lt/label&gt
+            &ltinput name="email" id="email" type=""  placeholder="Enter your E-mail"&gt
+            &ltspan class='red-message'&gt* &lt?php echo $emailErr;?&gt&lt/span&gt
+         &lt/div&gt
+         &lt!--get phone number--&gt
+         &ltdiv class="form-element"&gt
+            &ltlabel for="phoneno"&gtPhone no :&lt/label&gt
+            &ltinput name="phoneno" id="phoneno" type="" maxlength="10" placeholder="Enter your phone no"&gt
+            &ltspan class='red-message'&gt* &lt?php echo $phonenoErr;?&gt&lt/span&gt
+         &lt!-- to get comment---&gt
+         &ltdiv class="form-element"&gt
+            &ltlabel for="comment"&gtcomment:&lt/label&gt
+            &lttextarea id="comment" rows="5" cols="40" name="comment" placeholder="Type your comment" maxlenght="200"&gt&lt/textarea&gt
+         &lt/div&gt
+         &ltinput type="submit"  name="submit"&gt
+     &lt/div&gt
+   &lt/form&gt
+   &lth2&gtYour input:&lt/h2&gt
+   &lt?php
+     echo"Name",$name,"&ltbr&gt";
+     echo "Email:",$email,"&ltbr&gt";
+     echo "phoneno:",$phoneno,"&ltbr&gt";
+     echo "comment:",$comment;
+   ?&gt
+ &lt/div&gt
+
+    
+&lt/body&gt
+&lt/html&gt
+
+                        </code>
+                    </pre>
+                </div>
+
+            </div>
+
+
+            <div class="row">
+
+                <div class="sub-container code" >
+                    <h2> Style(css):</h2>
+                    <pre>
+                        <code class="language-css">
+
+                            .form-container
+                            {
+                                
+                                height: 500px; 
+                                padding: 30px;
+                                text-align: center;
+                                position: absolute;
+                                margin:auto;
+                                top: 0px;
+                                bottom: 0px;
+                                left: 0px;
+                                right: 0px;
+                                
+                            
+                            }
+                            .form-element
+                            {
+                                margin: 30px;
+                            }
+                            .red-message
+                            {
+                                color: red;
+                                position: absolute;
+                            }
+                            
+
+                        </code>
+                    </pre>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="sub-container" >
+                    <h2> HTML only:</h2>
+                    <pre>
+                        <code class="language-php">
+
+                            &lt!DOCTYPE html&gt
+                            &lthtml lang="en"&gt
+                            &lthead&gt
+                                
+                                &lttitle&gtValidating and displaying the inputs&lt/title&gt
+                                &ltlink rel="stylesheet" href="style.css"&gt
+                            &lt/head&gt
+                            &ltbody&gt
+                            
+                            &ltdiv class="form-container"&gt
+                                &ltdiv&gt&ltspan class="red-message"&gt* Required&lt/span&gt&lt/div&gt
+                                &ltform auto_complete="off" method="post" action="&lt?php echo $_SERVER["PHP_SELF"] ;?&gt"  &gt
+                                  &ltdiv&gt
+                                    &ltdiv class="form-element"&gt
+                                     &lt!-- to get name--&gt
+                                        &ltlabel for="name"&gtName :&lt/label&gt
+                                        &ltinput name="name" type="text" id="name" placeholder="Enter your name"&gt
+                                       
+                                     &lt/div&gt
+                                     &lt!-- to get email---&gt
+                                        &ltlabel for="-email"&gtE-mail :&lt/label&gt
+                                        &ltinput name="email" id="email" type=""  placeholder="Enter your E-mail"&gt
+                                        
+                                     &lt/div&gt
+                                     &lt!--get phone number--&gt
+                                     &ltdiv class="form-element"&gt
+                                        &ltlabel for="phoneno"&gtPhone no :&lt/label&gt
+                                        &ltinput name="phoneno" id="phoneno" type="" maxlength="10" placeholder="Enter your phone no"&gt
+                                        
+                                     &lt!-- to get comment---&gt
+                                     &ltdiv class="form-element"&gt
+                                        &ltlabel for="comment"&gtcomment:&lt/label&gt
+                                        &lttextarea id="comment" rows="5" cols="40" name="comment" placeholder="Type your comment" maxlenght="200"&gt&lt/textarea&gt
+                                     &lt/div&gt
+                                     &ltinput type="submit"  name="submit"&gt
+                                 &lt/div&gt
+                               &lt/form&gt
+                             &lt/div&gt
+                            
+                                
+                            &lt/body&gt
+                            &lt/html&gt
+
+                        </code>
+                    </pre>
+                </div>
+            </div>
+        
+        
+
+        </div>
+        
+    </div>
+    <div class="bg-secondary text-center">
+
+        <p>All rights reserved programmerjk | kalvikalai</p>
+
+    </div>
+
+
+<script src="prism.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+</body>
+</html>
