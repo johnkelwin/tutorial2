@@ -40,7 +40,7 @@ body
 }
 .sub-container
 {
-    width: 80%;
+    width: 100%;
     position: relative; 
     left: 50%;
     transform: translateX(-50%)
